@@ -1,0 +1,11 @@
+{
+  "name": "json_handle",
+  "version": "1.0.0",
+  "description": "json handle with stringfy & parse",
+  "main": "JSON.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
