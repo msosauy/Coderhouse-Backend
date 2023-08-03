@@ -2,43 +2,32 @@ import express from "express";
 
 const app = express();
 
-const usuario = [
-    {
-        id: 1,
-        nombre: "Manuel",
-        apellido: "Sosa",
-        edad: 39
-    },
-    {
-        id: 2,
-        nombre: "Salvador",
-        apellido: "Sosa",
-        edad: 8
-    }
+const usuarios = [
+    { id: 1, nombre: 'Dan', apellido: 'Espinosa', edad: 38 },
+    { id: 2, nombre: 'Chloe', apellido: 'Deker', edad: 32 },
+    { id: 3, nombre: 'Ella', apellido: 'Lopez', edad: 30 },
 ]
 
-app.get("/", (req,res) => {
+app.get('/', (req, res) => {
+    res.send(`Servidor ON`)
+})
+
+app.get('/usuarios', (req, res) => {
     res.send(usuarios)
 })
 
-app.get("/unParametro/:idUsuario", (req,res) => {
+app.get('/usuarios/:idUsuario', (req, res) => {
     const idUsuario = +req.params.idUsuario;
-    let usuario = usuarios.find(usuario => usuario.id === idUsuario );
+    let usuario = usuarios.find(usuario => usuario.id === idUsuario);
 
-    if(usuario) {
-        res.send(`No existe el usuario`)
+    if (!usuario) {
+        res.send(`No existe el usuario con el id ${idUsuario}`);
+        return;
     }
 
-})
-
-app.get("/unParametro/:nombre", (req,res) => {
-    res.send(`Bienvenido ${req.params.nombre}`)
-})
-
-app.get("/dosParametros/:nombre/:apellido", (req, res) => {
-    res.send(`Bienvenido ${req.params.nombre} ${req.params.apellido}`)
+    res.send(usuario);
 })
 
 app.listen(8080, () => {
-    console.log("Server running port: 8080");
-});
+    console.log('Servidor en puerto 8080')
+})
