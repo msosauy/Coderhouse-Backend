@@ -68,6 +68,6 @@ productHandler.addProduct("router", "SOHO", 120, "r1_img.png", 5);
 productHandler.addProduct("router", "Empresarial", 100, "r2_img.png", 2);
 productHandler.addProduct("access-point", "Enterprise", 250, "ap_img.png", 10);
 productHandler.getProducts();
-productHandler.getProductsById(100);
+productHandler.getProductsById(10);
 
 
