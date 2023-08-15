@@ -44,9 +44,8 @@ export default class CartManager {
 
       this.carts.push(...cartsListParse, cart);
       await fs.promises.writeFile(this.path, JSON.stringify(this.carts));
-      return;
+      return cart.id;
     } catch (error) {
-      console.log(error);
       throw new Error("No se pudo crear el carrito");
     }
   };
@@ -66,7 +65,7 @@ export default class CartManager {
 
     //Si el carrito a editar no existe retorna todos los carritos
     if (!searchCart) {
-      return carts;
+      throw new Error("El carrito no existe");
     }
 
     //Revisamos si existe el producto

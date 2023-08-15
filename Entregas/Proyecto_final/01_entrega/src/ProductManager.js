@@ -48,19 +48,6 @@ export default class ProductManager {
     category,
     code
   ) => {
-    // No se verifica el valor "code" ni "id".
-    if (
-      !title ||
-      !description ||
-      !price ||
-      !thumbnails ||
-      !stock ||
-      !status ||
-      !category
-    ) {
-      console.error("Faltan datos requeridos");
-      return;
-    }
 
     const productList = await this.getProducts();
 
@@ -79,8 +66,7 @@ export default class ProductManager {
     //verificamos que no se ingrese un producto con un codigo existente.
     for (const item of productList) {
       if (item.code === product.code) {
-        console.error("ERROR: Codigo existente");
-        throw new Error("Codigo existente");
+        throw new Error("Codigo de producto existente");
       }
     }
 
@@ -125,21 +111,6 @@ export default class ProductManager {
       category,
       thumbnails,
     } = productToUpdate;
-    //verificamos que se ingresen todos los datos.
-    if (
-      !id ||
-      !title ||
-      !description ||
-      !code ||
-      !price ||
-      !status ||
-      !stock ||
-      !category ||
-      !thumbnails
-    ) {
-      console.error("ERROR: Datos del producto incompletos");
-      throw new Error("Datos del producto incompletos");
-    }
 
     const productList = await this.getProducts();
 
@@ -163,7 +134,12 @@ export default class ProductManager {
     });
 
     //sobreescribimos el archivo con el contenido actualizado.
-    await fs.promises.writeFile(this.path, JSON.stringify(newProductsList));
+    try {
+      await fs.promises.writeFile(this.path, JSON.stringify(newProductsList));
+      return
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   deleteProduct = async (searchId) => {
@@ -175,7 +151,7 @@ export default class ProductManager {
     );
     if (!existingCode) {
       console.error("ERROR: Codigo inexistente");
-      throw new Error("El articulo no existe")
+      throw new Error("El articulo no existe");
     }
 
     //Se crea una nueva lista sin el producto correspondiente al ID recibido
