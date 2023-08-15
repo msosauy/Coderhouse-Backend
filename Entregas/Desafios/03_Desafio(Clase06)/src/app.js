@@ -49,7 +49,7 @@ app.get("/products/:pid", async (req, res) => {
     if (!productById) {
       return res
         .status(400)
-        .send({ status: "error", error: "Producto no encontrado" });
+        .send({ status: "error", error: "usuario no encontrado" });
     }
     return res.send(productById);
   }
