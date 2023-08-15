@@ -22,7 +22,6 @@ export default class ProductManager {
     }
     return Math.floor(Math.random() * 10000);
   };
-
   //Busca el ID mas alto existente y lo incrementa en 1. Garantiza que no se repitan los IDs.
   generateId = (productsList) => {
     if (productsList.length > 0) {
@@ -39,9 +38,26 @@ export default class ProductManager {
     return 1;
   };
 
-  addProduct = async (title, description, price, thumbnails, stock, status, category, code) => {
+  addProduct = async (
+    title,
+    description,
+    price,
+    thumbnails,
+    stock,
+    status,
+    category,
+    code
+  ) => {
     // No se verifica el valor "code" ni "id".
-    if (!title || !description || !price || !thumbnails || !stock || !status || !category) {
+    if (
+      !title ||
+      !description ||
+      !price ||
+      !thumbnails ||
+      !stock ||
+      !status ||
+      !category
+    ) {
       console.error("Faltan datos requeridos");
       return;
     }
@@ -64,14 +80,17 @@ export default class ProductManager {
     for (const item of productList) {
       if (item.code === product.code) {
         console.error("ERROR: Codigo existente");
-        return;
+        throw new Error("Codigo existente");
       }
     }
 
-    productList? this.products.push(...productList, product) : this.products.push(product);
+    productList
+      ? this.products.push(...productList, product)
+      : this.products.push(product);
 
     //Se crea el archivo con el array de objetos products convertido a json.
     await fs.promises.writeFile(this.path, JSON.stringify(this.products));
+    return;
   };
 
   getProducts = async () => {
@@ -94,27 +113,32 @@ export default class ProductManager {
     return "Producto no encontrado";
   };
 
-  updateProduct = async (
-    id,
-    title,
-    description,
-    price,
-    thumbnails,
-    code,
-    stock
-  ) => {
+  updateProduct = async (productToUpdate) => {
+    const {
+      id,
+      title,
+      description,
+      code,
+      price,
+      status,
+      stock,
+      category,
+      thumbnails,
+    } = productToUpdate;
     //verificamos que se ingresen todos los datos.
     if (
       !id ||
       !title ||
       !description ||
-      !price ||
-      !thumbnails ||
       !code ||
-      !stock
+      !price ||
+      !status ||
+      !stock ||
+      !category ||
+      !thumbnails
     ) {
       console.error("ERROR: Datos del producto incompletos");
-      return;
+      throw new Error("Datos del producto incompletos");
     }
 
     const productList = await this.getProducts();
@@ -126,10 +150,12 @@ export default class ProductManager {
           ...item,
           title,
           description,
-          price,
-          thumbnails,
           code,
+          price,
+          status,
           stock,
+          category,
+          thumbnails,
         };
         return updatedProduct;
       }
@@ -149,7 +175,7 @@ export default class ProductManager {
     );
     if (!existingCode) {
       console.error("ERROR: Codigo inexistente");
-      return;
+      throw new Error("El articulo no existe")
     }
 
     //Se crea una nueva lista sin el producto correspondiente al ID recibido

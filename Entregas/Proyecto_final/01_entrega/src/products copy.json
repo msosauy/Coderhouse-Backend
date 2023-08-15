@@ -1,5 +1,19 @@
 [
     {
+        "title": "MikroTik",
+        "description": "Router VPN de alto rendimiento",
+        "price": 279.99,
+        "thumbnails": [
+            "src/public/img/imagen12.jpg",
+            "src/public/img/imagen12_thumb.jpg"
+        ],
+        "stock": 23,
+        "status": true,
+        "category": "Security",
+        "code": "MTK-1012",
+        "id": 1
+    },
+    {
         "title": "CiscoVPN",
         "description": "Potente router VPN para empresas",
         "price": 349.99,
