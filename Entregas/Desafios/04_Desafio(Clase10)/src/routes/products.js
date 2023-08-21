@@ -1,5 +1,6 @@
 import { Router } from "express";
-import ProductManager from "../../../../Proyecto_final/01_entrega/src/ProductManager.js";
+import ProductManager from "./../ProductManager.js";
+
 
 const router = Router();
 const productManager = new ProductManager("./src/products.json");
@@ -15,8 +16,7 @@ router.get("/", async (req, res) => {
     const products = await productManager.getProducts();
 
     if (!limit) {
-      res.send(products);
-      return;
+      return res.status(200).send(products)
     }
 
     if (isNaN(limit)) {
@@ -245,7 +245,10 @@ router.put("/:pid", async (req, res) => {
     await productManager.updateProduct(productToUpdate);
     return res
       .status(201)
-      .send({ status: "success", success: "Producto actualizado correctamente" });
+      .send({
+        status: "success",
+        success: "Producto actualizado correctamente",
+      });
   } catch (err) {
     return res
       .status(400)
