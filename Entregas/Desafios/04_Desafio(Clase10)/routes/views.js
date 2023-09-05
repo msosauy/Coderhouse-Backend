@@ -11,8 +11,7 @@ router.use((req, res, next) => {
 router.get("/", async (req, res) => {
   try {
     const products = await productManager.getProducts();
-    console.log(products);
-    return res.status(200).render("home", { products, style: "home.css" });
+    return res.status(200).render("home", { products, style: "style.css" });
   } catch (error) {
     console.log(error);
     return res
@@ -23,9 +22,7 @@ router.get("/", async (req, res) => {
 
 router.get("/realtimeproducts", async (req, res) => {
   try {
-    const products = await productManager.getProducts();
-    console.log(products);
-    return res.status(200).render("home", { products, style: "home.css" });
+    return res.status(200).render("realTimeProducts", { style: "style.css" });
   } catch (error) {
     console.log(error);
     return res
