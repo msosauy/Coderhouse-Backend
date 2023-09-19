@@ -1,0 +1,17 @@
+<h1>Lista de usuarios</h1>
+
+{{#each users}}
+    <p>{{this.first_name}}</p>
+    <p>{{this.last_name}}</p>
+    <p>{{this.email}}</p>
+    <p>{{this.dni}}</p>
+    {{#if this.photo}}
+        <img src="{{this.photo}}"/>
+    {{/if}}
+    <p>Cursos:</p>
+    <ol>
+        {{#each this.courses}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ol>
+{{/each}}

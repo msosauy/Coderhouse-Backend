@@ -8,6 +8,7 @@ import { Server } from "socket.io";
 import { productSoketHandler } from "./sockets/productSocketHandler.js";
 
 const app = express();
+const PORT = 8081
 
 app.engine("handlebars", handlebars.engine());
 
@@ -22,8 +23,8 @@ app.use("/api/products", productsRouter);
 app.use("/views/products", viewsRouter);
 app.use("/api/carts", cartsRouter);
 
-const server = app.listen(8080, () => {
-  console.log("Server running on port 8080");
+const server = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 //Creamos una instancia del servidor en productSocketHandler

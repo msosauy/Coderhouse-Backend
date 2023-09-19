@@ -1,0 +1,19 @@
+<h1>Productos Real Time</h1>
+
+<form id='newProduct'>
+    <h2></h2>
+    <input type='text' name='title' id='title' placeholder='Title' required />
+    <input type='text' name='description' id='description' placeholder='Description' required />
+    <input type='number' name='price' id='price' placeholder='Price' required />
+    <input type='text' name='code' id='code' placeholder='Code' required />
+    <button type='submit'>CREAR</button>
+</form>
+
+<h2>Productos: </h2>
+
+<section id="listProducts">
+
+</section>
+
+<script src="socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>
