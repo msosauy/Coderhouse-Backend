@@ -1,0 +1,13 @@
+<div id="userLogin"></div>
+<button id="logout">LOGOUT</button>
+<div>
+    <ul>
+        {{#each products.payload}}
+        <li>{{title}} - U$S {{price}}</li>
+        {{/each}}
+    </ul>
+</div>
+<div id="pagination">
+</div>
+
+<script src="/js/home.js"></script>

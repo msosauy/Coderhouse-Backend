@@ -6,10 +6,13 @@ import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import viewsRouter from './routes/views.js'
 import sessionsRouter from './routes/sessions.js'
+import passport from 'passport';
+import { initializePassport } from './config/passport.js';
+
+const urlMongo = 'tu url'
 
 const app = express();
-
-const connection = mongoose.connect('Tu URL de mongo',{
+const connection = mongoose.connect(urlMongo,{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
@@ -25,13 +28,16 @@ app.set('view engine','handlebars');
 
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: 'Tu URL de mongo',
+        mongoUrl: urlMongo,
         ttl: 3600
     }),
     secret: "CoderSecret",
     resave: false,
     saveUninitialized: false
 }))
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', viewsRouter);
 app.use('/api/sessions', sessionsRouter)

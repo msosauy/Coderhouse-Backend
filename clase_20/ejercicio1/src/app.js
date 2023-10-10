@@ -7,9 +7,10 @@ import __dirname from './utils.js';
 import viewsRouter from './routes/views.js'
 import sessionsRouter from './routes/sessions.js'
 
-const app = express();
+const urlMongo = 'tu url'
 
-const connection = mongoose.connect('Tu URL de mongo',{
+const app = express();
+const connection = mongoose.connect(urlMongo,{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
@@ -25,7 +26,7 @@ app.set('view engine','handlebars');
 
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: 'Tu URL de mongo',
+        mongoUrl: urlMongo,
         ttl: 3600
     }),
     secret: "CoderSecret",
